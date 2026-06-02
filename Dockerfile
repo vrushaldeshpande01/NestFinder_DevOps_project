@@ -10,7 +10,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci --omit=dev
+RUN npm install --omit=dev
 
 # Copy source code
 COPY . .
@@ -35,7 +35,7 @@ COPY --from=builder --chown=nestfinder:nodejs /app/dist ./dist
 COPY --from=builder --chown=nestfinder:nodejs /app/package*.json ./
 
 # Install only production dependencies
-RUN npm ci --only=production && \
+RUN npm install --omit=dev && \
     npm cache clean --force
 
 # Switch to non-root user
